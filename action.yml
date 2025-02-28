@@ -6,4 +6,4 @@ runs:
   steps:
     - name: Run setup-percona-toolkit.sh
       shell: bash
-      run: "$GITHUB_ACTION_PATH"/setup-percona-toolkit.sh
+      run: ${{ github.action_path }}/setup-percona-toolkit.sh
