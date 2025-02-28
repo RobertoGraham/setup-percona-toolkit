@@ -4,7 +4,7 @@ description: Sets up Percona Toolkit in your GitHub Actions workflow.
 runs:
   using: composite
   steps:
-    - name: Set up GitHub path
+    - name: Add Action directory to PATH
       shell: bash
       run: echo "${{ github.action_path }}" >> "$GITHUB_PATH"
 
