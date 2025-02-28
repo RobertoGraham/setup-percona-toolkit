@@ -1,0 +1,9 @@
+name: Set up Percona Toolkit
+author: Roberto Graham
+description: Sets up Percona Toolkit in your GitHub Actions workflow.
+runs:
+  using: composite
+  steps:
+    - name: Run setup-percona-toolkit.sh
+      shell: bash
+      run: "$GITHUB_ACTION_PATH"/setup-percona-toolkit.sh
