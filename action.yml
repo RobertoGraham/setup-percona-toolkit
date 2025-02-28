@@ -13,8 +13,6 @@ runs:
       shell: bash
       run: echo "${{ github.action_path }}" >> "$GITHUB_PATH"
 
-    - name: Run setup-percona-toolkit.sh
+    - name: Run setup_percona_toolkit.sh
       shell: bash
-      run: setup-percona-toolkit.sh
-      env:
-        PRODUCT_VERSION: ${{ inputs.product-version }} # TODO: Validate.
+      run: setup_percona_toolkit.sh download_compressed_percona_toolkit_tarball '${{ inputs.product-version }}'
