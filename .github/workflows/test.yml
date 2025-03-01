@@ -32,7 +32,7 @@ jobs:
           --database=setup_percona_toolkit
           --user=root
           --skip-password
-          --execute='CREATE TABLE test (id INT)'
+          --execute='CREATE TABLE test (id INT PRIMARY KEY)'
 
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # https://github.com/actions/checkout/releases/tag/v4.2.2
