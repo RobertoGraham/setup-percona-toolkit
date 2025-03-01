@@ -1,13 +1,40 @@
 name: Set up Percona Toolkit
 author: Roberto Graham
 description: Sets up Percona Toolkit in your GitHub Actions workflow.
+inputs:
+  product-version:
+    description: Product Version of Percona Toolkit to set up.
+    required: false
+    default: '3.7.0'
 runs:
   using: composite
   steps:
-    - name: Add Action directory to PATH
-      shell: bash
-      run: echo "${{ github.action_path }}" >> "$GITHUB_PATH"
+    - name: Set up Node.js
+      uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # https://github.com/actions/setup-node/releases/tag/v4.2.0
+      with:
+        node-version: 'lts/*'
 
-    - name: Run setup-percona-toolkit.sh
+    - name: Install @actions/tool-cache package
       shell: bash
-      run: setup-percona-toolkit.sh
+      run: npm install @actions/tool-cache
+
+    - name: Install Percona Toolkit
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # https://github.com/actions/github-script/releases/tag/v7.0.1
+      env:
+        PRODUCT_VERSION: ${{ inputs.product-version }}
+      with:
+        script: |-
+          const toolCache = require('@actions/tool-cache');
+          const { PRODUCT_VERSION } = process.env
+          let cachedPerconaToolkitPath = toolCache.find('percona-toolkit', PRODUCT_VERSION);
+          if (cachedPerconaToolkitPath === '') {
+            const compressedPerconaToolkitTarballPath = await toolCache.downloadTool(`https://downloads.percona.com/downloads/percona-toolkit/${PRODUCT_VERSION}/binary/tarball/percona-toolkit-${PRODUCT_VERSION}_x86_64.tar.gz`);
+            const perconaToolkitPath = await toolCache.extractTar(compressedPerconaToolkitTarballPath);
+            cachedPerconaToolkitPath = await toolCache.cacheDir(perconaToolkitPath, 'percona-toolkit', PRODUCT_VERSION);
+          }
+          core.addPath(`${cachedPerconaToolkitPath}/percona-toolkit-${PRODUCT_VERSION}/bin`);
+
+    - name: Install Percona Toolkit dependencies
+      uses: shogo82148/actions-setup-perl@49c14f24551d2de3bf56fb107a869c3760b1875e # https://github.com/shogo82148/actions-setup-perl/releases/tag/v1.33.0
+      with:
+        install-modules: DBI DBD::mysql
