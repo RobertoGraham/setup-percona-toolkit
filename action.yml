@@ -20,14 +20,16 @@ runs:
 
     - name: Install Percona Toolkit
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # https://github.com/actions/github-script/releases/tag/v7.0.1
+      env:
+        PRODUCT_VERSION: ${{ inputs.product-version }}
       with:
         script: |-
           const toolCache = require('@actions/tool-cache');
-          const productVersion = core.getInput('product-version', { required: true });
-          let cachedPerconaToolkitPath = toolCache.find('percona-toolkit', productVersion);
+          const { PRODUCT_VERSION } = process.env
+          let cachedPerconaToolkitPath = toolCache.find('percona-toolkit', PRODUCT_VERSION);
           if (cachedPerconaToolkitPath === '') {
-            const compressedPerconaToolkitTarballPath = await toolCache.downloadTool(`https://downloads.percona.com/downloads/percona-toolkit/${productVersion}/binary/tarball/percona-toolkit-${productVersion}_x86_64.tar.gz`);
+            const compressedPerconaToolkitTarballPath = await toolCache.downloadTool(`https://downloads.percona.com/downloads/percona-toolkit/${PRODUCT_VERSION}/binary/tarball/percona-toolkit-${PRODUCT_VERSION}_x86_64.tar.gz`);
             const perconaToolkitPath = await toolCache.extractTar(compressedPerconaToolkitTarballPath);
-            cachedPerconaToolkitPath = await toolCache.cacheDir(perconaToolkitPath, 'percona-toolkit', productVersion);
+            cachedPerconaToolkitPath = await toolCache.cacheDir(perconaToolkitPath, 'percona-toolkit', PRODUCT_VERSION);
           }
-          core.addPath(`${cachedPerconaToolkitPath}/percona-toolkit-${productVersion}/bin`);
+          core.addPath(`${cachedPerconaToolkitPath}/percona-toolkit-${PRODUCT_VERSION}/bin`);
