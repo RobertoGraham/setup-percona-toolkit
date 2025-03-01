@@ -21,6 +21,4 @@ jobs:
 
       - name: Print Percona Toolkit version
         shell: bash
-        env:
-          PTDEBUG: '1'
         run: pt-online-schema-change --version
