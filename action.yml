@@ -21,7 +21,6 @@ runs:
       uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # https://github.com/actions/setup-node/releases/tag/v4.2.0
       with:
         node-version: 'lts/*'
-        cache: 'npm'
 
     - name: Install @actions/tool-cache package
       shell: bash
@@ -33,5 +32,5 @@ runs:
         script: |-
           const toolCache = require('@actions/tool-cache');
           const compressedPerconaToolkitTarballPath = await toolCache.downloadTool('https://downloads.percona.com/downloads/percona-toolkit/${{ inputs.product-version }}/binary/tarball/percona-toolkit-${{ inputs.product-version }}_x86_64.tar.gz');
-          const perconaToolkitPath = await toolCache.extractTar(perconaToolkitPath, '${{ runner.tool_cache }}/.percona');
+          const perconaToolkitPath = await toolCache.extractTar(compressedPerconaToolkitTarballPath);
           core.addPath(perconaToolkitPath);
