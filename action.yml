@@ -24,6 +24,7 @@ runs:
         cache: 'npm'
 
     - name: Install @actions/tool-cache package
+      shell: bash
       run: npm install @actions/tool-cache
 
     - name: Install Percona Toolkit
