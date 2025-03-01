@@ -33,5 +33,4 @@ runs:
           const toolCache = require('@actions/tool-cache');
           const compressedPerconaToolkitTarballPath = await toolCache.downloadTool('https://downloads.percona.com/downloads/percona-toolkit/${{ inputs.product-version }}/binary/tarball/percona-toolkit-${{ inputs.product-version }}_x86_64.tar.gz');
           const perconaToolkitPath = await toolCache.extractTar(compressedPerconaToolkitTarballPath);
-          console.log({perconaToolkitPath});
-          core.addPath(`${perconaToolkitPath}/bin`);
+          core.addPath(`${perconaToolkitPath}/percona-toolkit-${{ inputs.product-version }}/bin`);
