@@ -20,4 +20,5 @@ jobs:
         uses: ./
 
       - name: Print Percona Toolkit version
+        shell: bash
         run: pt-online-schema-change --version
