@@ -16,9 +16,7 @@ jobs:
           ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: setup_percona_toolkit
         ports:
-          - 3306:3306
-        volumes:
-          - ${{ github.workspace }}/test:/docker-entrypoint-startdb.d
+          - 3306
         options: >-
           --name mysql
           --health-cmd /opt/bitnami/scripts/mysql/healthcheck.sh
@@ -26,13 +24,18 @@ jobs:
           --health-timeout 5s
           --health-retries 6
     steps:
+      - name: Create test table
+        run: >-
+          mysql
+          --host=localhost
+          --port=${{ job.services.mysql.ports['3306'] }}
+          --database=setup_percona_toolkit
+          --user=root
+          --skip-password
+          --execute='CREATE TABLE test (id INT)'
+
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # https://github.com/actions/checkout/releases/tag/v4.2.2
-
-      - name: Restart MySQL
-        uses: docker://docker
-        with:
-          args: docker restart mysql
 
       - name: Set up Percona Toolkit
         uses: ./
@@ -44,6 +47,7 @@ jobs:
           --execute
           --alter 'ADD COLUMN test INT'
           --host localhost
+          --port ${{ job.services.mysql.ports['3306'] }}
           --user root
           --password ''
           D=setup_percona_toolkit,t=test
