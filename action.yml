@@ -9,14 +9,6 @@ inputs:
 runs:
   using: composite
   steps:
-    #    - name: Add Action directory to PATH
-    #      shell: bash
-    #      run: echo "${{ github.action_path }}" >> "$GITHUB_PATH"
-    #
-    #    - name: Run setup_percona_toolkit.sh
-    #      shell: bash
-    #      run: setup_percona_toolkit.sh download_compressed_percona_toolkit_tarball '${{ inputs.product-version }}'
-
     - name: Set up Node.js
       uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # https://github.com/actions/setup-node/releases/tag/v4.2.0
       with:
@@ -31,6 +23,11 @@ runs:
       with:
         script: |-
           const toolCache = require('@actions/tool-cache');
-          const compressedPerconaToolkitTarballPath = await toolCache.downloadTool('https://downloads.percona.com/downloads/percona-toolkit/${{ inputs.product-version }}/binary/tarball/percona-toolkit-${{ inputs.product-version }}_x86_64.tar.gz');
-          const perconaToolkitPath = await toolCache.extractTar(compressedPerconaToolkitTarballPath);
-          core.addPath(`${perconaToolkitPath}/percona-toolkit-${{ inputs.product-version }}/bin`);
+          const productVersion = core.getInput('product-version', { required: true });
+          let cachedPerconaToolkitPath = toolCache.find('percona-toolkit', productVersion);
+          if (cachedPerconaToolkitPath === '') {
+            const compressedPerconaToolkitTarballPath = await toolCache.downloadTool(`https://downloads.percona.com/downloads/percona-toolkit/${productVersion}/binary/tarball/percona-toolkit-${productVersion}_x86_64.tar.gz`);
+            const perconaToolkitPath = await toolCache.extractTar(compressedPerconaToolkitTarballPath);
+            cachedPerconaToolkitPath = await toolCache.cacheDir(perconaToolkitPath, 'percona-toolkit', productVersion);
+          }
+          core.addPath(`${cachedPerconaToolkitPath}/percona-toolkit-${productVersion}/bin`);
