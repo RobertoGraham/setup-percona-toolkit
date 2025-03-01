@@ -46,7 +46,7 @@ jobs:
           pt-online-schema-change
           --execute
           --alter 'ADD COLUMN test INT'
-          --host localhost
+          --host 127.0.0.1
           --port ${{ job.services.mysql.ports['3306'] }}
           --user root
           --password ''
