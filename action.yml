@@ -55,9 +55,9 @@ runs:
 
     - if: steps.zstandard.outputs.exists == 'false'
       name: Install Zstandard
-      working-directory: ${{ env.GITHUB_WORKSPACE }}/.zstandard
       shell: bash
       run: |-
+        cd "$GITHUB_WORKSPACE/.zstandard"
         make "$PWD/release" install
         echo "$PWD/release/bin" >> "$GITHUB_PATH"
 
