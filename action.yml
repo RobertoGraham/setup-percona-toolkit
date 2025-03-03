@@ -1,6 +1,9 @@
 name: Set up Percona Toolkit
 author: Roberto Graham
 description: Sets up Percona Toolkit in your GitHub Actions workflow.
+branding:
+  icon: triangle
+  color: orange
 inputs:
   product-version:
     description: Product Version of Percona Toolkit to set up.
