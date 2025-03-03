@@ -57,9 +57,9 @@ runs:
       name: Install Zstandard
       shell: bash
       run: |-
-        cd "$GITHUB_WORKSPACE/.zstandard"
-        make "$PWD/release" install
-        echo "$PWD/release/bin" >> "$GITHUB_PATH"
+        cd "$GITHUB_WORKSPACE"/.zstandard || exit
+        make "$PWD"/release install
+        echo "$PWD"/release/bin" >> "$GITHUB_PATH"
 
     - name: Install Percona Toolkit dependencies
       uses: shogo82148/actions-setup-perl@49c14f24551d2de3bf56fb107a869c3760b1875e # https://github.com/shogo82148/actions-setup-perl/releases/tag/v1.33.0
