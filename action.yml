@@ -15,11 +15,11 @@ runs:
     - name: Set up Node.js
       uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # https://github.com/actions/setup-node/releases/tag/v4.2.0
       with:
-        node-version: 'lts/*'
+        node-version: '22.14.0'
 
     - name: Install @actions/tool-cache package
       shell: bash
-      run: npm install @actions/tool-cache
+      run: npm install @actions/tool-cache@2.0.2
 
     - name: Install Percona Toolkit
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # https://github.com/actions/github-script/releases/tag/v7.0.1
@@ -37,7 +37,35 @@ runs:
           }
           core.addPath(`${cachedPerconaToolkitPath}/percona-toolkit-${PRODUCT_VERSION}/bin`);
 
+    - name: Check if Zstandard exists
+      id: zstandard
+      shell: bash
+      run: |-
+        if command -v zstd > /dev/null 2>&1
+        then
+          echo "exists=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "exists=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - if: steps.zstandard.outputs.exists == 'false'
+      name: Checkout facebook/zstd
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # https://github.com/actions/checkout/releases/tag/v4.2.2
+      with:
+        repository: 'facebook/zstd'
+        ref: 'v1.5.7'
+        path: '.zstandard'
+
+    - if: steps.zstandard.outputs.exists == 'false'
+      name: Install Zstandard
+      shell: bash
+      run: |-
+        cd "$GITHUB_WORKSPACE"/.zstandard || exit
+        make PREFIX="$PWD"/release install
+        echo "$PWD"/release/bin >> "$GITHUB_PATH"
+
     - name: Install Percona Toolkit dependencies
       uses: shogo82148/actions-setup-perl@49c14f24551d2de3bf56fb107a869c3760b1875e # https://github.com/shogo82148/actions-setup-perl/releases/tag/v1.33.0
       with:
+        perl-version: '5.40.1'
         install-modules: DBI DBD::mysql
