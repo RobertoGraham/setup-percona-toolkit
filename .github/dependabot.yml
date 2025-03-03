@@ -8,11 +8,3 @@ updates:
       timezone: "Europe/London"
     reviewers:
       - "RobertoGraham"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "09:00"
-      timezone: "Europe/London"
-    reviewers:
-      - "RobertoGraham"
