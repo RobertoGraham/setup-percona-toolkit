@@ -12,13 +12,11 @@ runs:
     - name: Set up Node.js
       uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # https://github.com/actions/setup-node/releases/tag/v4.2.0
       with:
-        node-version-file: ${{ env.GITHUB_ACTION_PATH }}/.nvmrc
-        cache: 'npm'
+        node-version: '22.14.0'
 
-    - name: Install NPM packages
-      working-directory: ${{ env.GITHUB_ACTION_PATH }}
+    - name: Install @actions/tool-cache package
       shell: bash
-      run: npm ci
+      run: npm install @actions/tool-cache@2.0.2
 
     - name: Install Percona Toolkit
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # https://github.com/actions/github-script/releases/tag/v7.0.1
