@@ -43,9 +43,9 @@ jobs:
         name: Unlink Zstandard
         shell: bash
         run: |-
-          command -v zstd
           sudo rm "$(command -v zstd)"
-          command -v zstd
+          # Again, because it's on the PATH multiple times.
+          sudo rm "$(command -v zstd)"
 
       - name: Set up Percona Toolkit
         uses: ./
