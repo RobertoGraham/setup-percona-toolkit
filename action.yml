@@ -58,7 +58,7 @@ runs:
       shell: bash
       run: |-
         cd "$GITHUB_WORKSPACE"/.zstandard || exit
-        make "$PWD"/release install
+        make PREFIX="$PWD"/release install
         echo "$PWD"/release/bin" >> "$GITHUB_PATH"
 
     - name: Install Percona Toolkit dependencies
