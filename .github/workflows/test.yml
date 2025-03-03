@@ -42,7 +42,10 @@ jobs:
       - if: matrix.unlink-zstandard == true
         name: Unlink Zstandard
         shell: bash
-        run: rm "$(command -v zstd)"
+        run: |-
+          command -v zstd
+          sudo rm "$(command -v zstd)"
+          which zstd
 
       - name: Set up Percona Toolkit
         uses: ./
