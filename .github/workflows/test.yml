@@ -45,7 +45,7 @@ jobs:
         run: |-
           command -v zstd
           sudo rm "$(command -v zstd)"
-          which zstd
+          command -v zstd
 
       - name: Set up Percona Toolkit
         uses: ./
