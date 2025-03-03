@@ -42,7 +42,7 @@ jobs:
       - if: matrix.uninstall-zstandard == true
         name: Uninstall Zstandard
         shell: bash
-        run: sudo apt-get purge --auto-remove zstd
+        run: sudo apt-get remove --purge zstd
 
       - name: Set up Percona Toolkit
         uses: ./
