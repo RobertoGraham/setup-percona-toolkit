@@ -1,0 +1,6 @@
+{
+  "private": "true",
+  "dependencies": {
+    "@actions/tool-cache": "^2.0.2"
+  }
+}
