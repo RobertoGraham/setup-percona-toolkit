@@ -9,6 +9,9 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        uninstall-zstandard: [ true, false ]
     services:
       mysql:
         image: bitnami/mysql:8.4.4
@@ -35,6 +38,11 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # https://github.com/actions/checkout/releases/tag/v4.2.2
+
+      - if: matrix.uninstall-zstandard == true
+        name: Uninstall Zstandard
+        shell: bash
+        run: sudo apt-get purge --auto-remove zstd
 
       - name: Set up Percona Toolkit
         uses: ./
