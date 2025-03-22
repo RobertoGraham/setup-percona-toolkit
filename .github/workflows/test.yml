@@ -39,7 +39,7 @@ jobs:
           path: 'setup-percona-toolkit'
 
       - name: Set up Percona Toolkit
-        uses: setup-percona-toolkit
+        uses: ./setup-percona-toolkit
 
       - name: Use pt-online-schema-change
         shell: bash
