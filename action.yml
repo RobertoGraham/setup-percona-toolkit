@@ -12,15 +12,14 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Output GITHUB_ACTION_PATH
-      id: github-action-path
+    - name: Create symbolic link to Node.js version file
       shell: bash
-      run: echo "value=$GITHUB_ACTION_PATH" >> "$GITHUB_OUTPUT"
+      run: ln --symbolic "$GITHUB_ACTION_PATH"/.nvmrc
 
     - name: Set up Node.js
       uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # https://github.com/actions/setup-node/releases/tag/v4.3.0
       with:
-        node-version-file: '${{ steps.github-action-path.outputs.value }}/.nvmrc'
+        node-version-file: '.nvmrc'
         cache: 'npm'
 
     - name: Install npm packages
