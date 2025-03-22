@@ -33,11 +33,8 @@ jobs:
           --skip-password
           --execute='CREATE TABLE test (id INT PRIMARY KEY)'
 
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # https://github.com/actions/checkout/releases/tag/v4.2.2
-
       - name: Set up Percona Toolkit
-        uses: ./
+        uses: ${{ github.repository }}@${{ github.head_ref }}
 
       - name: Use pt-online-schema-change
         shell: bash
