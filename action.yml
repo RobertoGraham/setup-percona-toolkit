@@ -12,13 +12,15 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: env
+    - name: Output GITHUB_ACTION_PATH
+      id: github-action-path
       shell: bash
+      run: echo "value=$GITHUB_ACTION_PATH" >> "$GITHUB_OUTPUT"
 
     - name: Set up Node.js
       uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # https://github.com/actions/setup-node/releases/tag/v4.3.0
       with:
-        node-version-file: '${{ env.GITHUB_ACTION_PATH }}/.nvmrc'
+        node-version-file: '${{ steps.github-action-path.outputs.value }}/.nvmrc'
         cache: 'npm'
 
     - name: Install npm packages
