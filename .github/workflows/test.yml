@@ -9,9 +9,6 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        unlink-zstandard: [ true, false ]
     services:
       mysql:
         image: bitnami/mysql:8.4.4
@@ -38,17 +35,11 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # https://github.com/actions/checkout/releases/tag/v4.2.2
-
-      - if: matrix.unlink-zstandard == true
-        name: Unlink Zstandard
-        shell: bash
-        run: |-
-          sudo rm "$(command -v zstd)"
-          # Again, because it's on the PATH multiple times.
-          sudo rm "$(command -v zstd)"
+        with:
+          path: 'setup-percona-toolkit'
 
       - name: Set up Percona Toolkit
-        uses: ./
+        uses: ./setup-percona-toolkit
 
       - name: Use pt-online-schema-change
         shell: bash

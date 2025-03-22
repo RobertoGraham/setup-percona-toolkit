@@ -6,7 +6,7 @@ Actions workflow by:
 - Ensuring
   the [System Requirements of Percona Toolkit](https://docs.percona.com/percona-toolkit/system_requirements.html) are
   met.
-- Downloading a specific version of Percona Toolkit and adding its collection of command-line tools to the `PATH`.
+- Downloading a specific Product Version of Percona Toolkit and adding its collection of command-line tools to the `PATH`.
 
 ## Usage
 
@@ -20,14 +20,14 @@ The default configuration installs Product Version `3.7.0` of Percona Toolkit:
 
 ```yaml
 - name: Set up Percona Toolkit
-  uses: RobertoGraham/setup-percona-toolkit@v1.1.0
+  uses: RobertoGraham/setup-percona-toolkit@v2.0.0
 ```
 
 A specific Product Version of Percona Toolkit can be installed:
 
 ```yaml
 - name: Set up Percona Toolkit
-  uses: RobertoGraham/setup-percona-toolkit@v1.1.0
+  uses: RobertoGraham/setup-percona-toolkit@v2.0.0
   with:
     product-version: '3.6.0'
 ```
