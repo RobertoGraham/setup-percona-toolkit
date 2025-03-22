@@ -12,9 +12,12 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Create symbolic link to Node.js version file
+    - name: Create symbolic links to Node.js configuration files # https://github.com/actions/setup-node/issues/852
       shell: bash
-      run: ln --symbolic "$GITHUB_ACTION_PATH"/.nvmrc
+      run: |-
+        ln --symbolic "$GITHUB_ACTION_PATH"/.nvmrc
+        ln --symbolic "$GITHUB_ACTION_PATH"/package.json
+        ln --symbolic "$GITHUB_ACTION_PATH"/package-lock.json
 
     - name: Set up Node.js
       uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # https://github.com/actions/setup-node/releases/tag/v4.3.0
