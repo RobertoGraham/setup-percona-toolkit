@@ -48,5 +48,5 @@ runs:
     - name: Install Percona Toolkit dependencies
       uses: shogo82148/actions-setup-perl@22423f01bde48fb88785c007e3166fbbbd8e892a # https://github.com/shogo82148/actions-setup-perl/releases/tag/v1.34.0
       with:
-        perl-version: '5.40.1'
+        perl-version: '5.40.2'
         install-modules: DBI DBD::mysql
