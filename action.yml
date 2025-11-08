@@ -8,7 +8,7 @@ inputs:
   product-version:
     description: Product Version of Percona Toolkit to set up.
     required: false
-    default: '3.7.0'
+    default: '3.7.0-2'
 runs:
   using: composite
   steps:
