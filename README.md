@@ -16,18 +16,18 @@ but you may choose to run it on any other GitHub-hosted
 or [self-hosted](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners)
 runner.
 
-The default configuration installs Product Version `3.7.0` of Percona Toolkit:
+The default configuration installs Product Version `3.7.0-2` of Percona Toolkit:
 
 ```yaml
 - name: Set up Percona Toolkit
-  uses: RobertoGraham/setup-percona-toolkit@v2.0.2
+  uses: RobertoGraham/setup-percona-toolkit@v2.1.0
 ```
 
 A specific Product Version of Percona Toolkit can be installed:
 
 ```yaml
 - name: Set up Percona Toolkit
-  uses: RobertoGraham/setup-percona-toolkit@v2.0.2
+  uses: RobertoGraham/setup-percona-toolkit@v2.1.0
   with:
     product-version: '3.6.0'
 ```
