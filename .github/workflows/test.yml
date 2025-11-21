@@ -34,7 +34,7 @@ jobs:
           --execute='CREATE TABLE test (id INT PRIMARY KEY)'
 
       - name: Checkout
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # https://github.com/actions/checkout/releases/tag/v5.0.1
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # https://github.com/actions/checkout/releases/tag/v6.0.0
         with:
           path: 'setup-percona-toolkit'
 
