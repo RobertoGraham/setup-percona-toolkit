@@ -20,14 +20,14 @@ The default configuration installs Product Version `3.7.0-2` of Percona Toolkit:
 
 ```yaml
 - name: Set up Percona Toolkit
-  uses: RobertoGraham/setup-percona-toolkit@v2.1.0
+  uses: RobertoGraham/setup-percona-toolkit@v2.1.1
 ```
 
 A specific Product Version of Percona Toolkit can be installed:
 
 ```yaml
 - name: Set up Percona Toolkit
-  uses: RobertoGraham/setup-percona-toolkit@v2.1.0
+  uses: RobertoGraham/setup-percona-toolkit@v2.1.1
   with:
     product-version: '3.6.0'
 ```
