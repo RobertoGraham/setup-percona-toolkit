@@ -35,7 +35,7 @@ runs:
         PRODUCT_VERSION: ${{ inputs.product-version }}
       with:
         script: |-
-          const toolCache = await import('${{ github.workspace }}/node_modules/@actions/tool-cache');
+          const toolCache = await import('${{ github.workspace }}/node_modules/@actions/tool-cache/lib/tool-cache.js');
           const { PRODUCT_VERSION } = process.env
           let cachedPerconaToolkitPath = toolCache.find('percona-toolkit', PRODUCT_VERSION);
           if (cachedPerconaToolkitPath === '') {
