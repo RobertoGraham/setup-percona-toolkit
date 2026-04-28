@@ -46,7 +46,7 @@ runs:
           core.addPath(`${cachedPerconaToolkitPath}/percona-toolkit-${PRODUCT_VERSION}/bin`);
 
     - name: Install Percona Toolkit dependencies
-      uses: shogo82148/actions-setup-perl@dea55ec1f85d42d13106b8e8263b9b7199eaef09 # https://github.com/shogo82148/actions-setup-perl/releases/tag/v1.39.0
+      uses: shogo82148/actions-setup-perl@9f8c263975569ff3b4e510cb1f8813115749e146 # https://github.com/shogo82148/actions-setup-perl/releases/tag/v1.41.0
       with:
         perl-version: '5.40.2'
         install-modules: DBI DBD::mysql
